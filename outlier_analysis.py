@@ -68,8 +68,10 @@ def main(collection,choice):
         df1=pd.concat([df, common]).drop_duplicates(keep=False)
         final=df1
 
-    print(final.shape)
+    
     name="dataset_outlier_"+str(choice)+".csv"
+    result_new = datasets[name]
+    result_new.drop()
     new_collection = datasets[name]
     mdata = final.to_dict("records")
     new_collection.insert_many(mdata)

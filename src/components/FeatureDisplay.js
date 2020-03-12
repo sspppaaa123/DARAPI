@@ -44,8 +44,11 @@ class FeatureDisplay extends Component {
     }
 
     onClick(e) {
+        
         let keys = Array.from( this.state.checkedItems.keys() );
         console.log(keys,this.props.filename)
+        if(this.props.inputType[this.props.target]=="1")
+        {
         axios({
             method: 'post',
             url: '/users/classify',
@@ -71,6 +74,35 @@ class FeatureDisplay extends Component {
             .catch(function (response) {
                 console.log(response);
             });
+        }
+        else
+        {
+            axios({
+                method: 'post',
+                url: '/users/regression',
+                data: {
+                  collection: this.props.filename,
+                  features: keys,
+                  target: this.props.target,
+                  inputType:this.props.inputType
+                },
+                headers: {'Content-Type': 'application/json'}
+                })
+                .then((response) => {
+                    this.setState({
+                        methodName: response.data.names,
+                        methodScore: response.data.test_scores
+                    })
+                    this.props.methodName(this.state.methodName)
+                    this.props.methodScore(this.state.methodScore)
+                    this.props.history.push(`/result`)
+                    console.log(response.data.names, this.state.methodName)
+                    console.log(response.data.test_scores, this.state.methodScore)
+                })
+                .catch(function (response) {
+                    console.log(response);
+                });
+        }
     }
 
     render ()  {

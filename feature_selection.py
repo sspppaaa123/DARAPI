@@ -89,7 +89,7 @@ def main(collection, target, inputType):
         features=feature_selection_model(f_regression,X,y)
         type_of_problem = 'classification'
     elif (coltype1==0) & (coltype2==0):
-        features=pearson(data,'price_range')
+        features=pearson(data,target)
         type_of_problem = 'regression'
     elif (coltype1==-1):
         for key,value in likely_cat1.items():
@@ -107,7 +107,8 @@ def main(collection, target, inputType):
             type_of_problem = 'classification'
         else:
             f1=feature_selection_model(f_regression,catcols,y)
-            f2=feature_selection_model(numcols,'price_range')
+            df2=data.drop(catcols,axis=1)
+            f2=pearson(df2,target)
             features=pd.concat([f1,f2],ignore_index=True)
             features.drop('Percent',axis=1)
             score_sum = features['Score'].sum()

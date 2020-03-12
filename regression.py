@@ -6,6 +6,7 @@ from sklearn.ensemble import RandomForestRegressor
 from sklearn import ensemble
 from sklearn.preprocessing import StandardScaler
 from sklearn.decomposition import PCA
+import numpy as np
 
        
 def main(collection,imp_features,target,inputType):
@@ -15,12 +16,12 @@ def main(collection,imp_features,target,inputType):
     data = pd.DataFrame(list(col.find()))
     data.drop(data.columns[[0]], axis = 1, inplace = True) 
     df=data
+    df = df[imp_features]
     cat_features = []
 
-    for key in inputType:
+    for key in imp_features:
         if(inputType[key]=="1"):
-            if(key!=target):
-                cat_features.append(key)
+            cat_features.append(key)
 
 
     df = pd.get_dummies(df, columns=cat_features, drop_first=True)
@@ -32,10 +33,15 @@ def main(collection,imp_features,target,inputType):
     y = pd.DataFrame()
     result = pd.DataFrame(columns=['Test_Score'])
  
-    X = df[imp_features]
+    X = df
     print(X.columns)
 
     y[target] = data[target]
+
+    y =  np.log1p(y)
+    for col in X.columns:
+        if np.abs(X[col].skew()) > 0.3:
+            X[col] = np.log1p(X[col])
 
     X_train, X_test, y_train, y_test = train_test_split(X, y,test_size=0.1, random_state = 0)
 
@@ -52,14 +58,14 @@ def main(collection,imp_features,target,inputType):
     reg = linear_model.LinearRegression() 
     reg.fit(X_train, y_train) 
     print("Test set score: {:.2f}".format(reg.score(X_test, y_test)))
-    result.at['Linear_Regression']=reg.score(X_test, y_test)
+    result.at['Linear_Regression']=round(reg.score(X_test, y_test),2)
     
     #RandomForest Regressor
     print("RandomForest Classifier")
     regressor = RandomForestRegressor(n_estimators = 20, random_state = 0)
     regressor.fit(X_train,y_train)
     print("Test set score: {:.2f}".format(regressor.score(X_test, y_test)))
-    result.at['Randomforest']=regressor.score(X_test, y_test)
+    result.at['Randomforest']=round(regressor.score(X_test, y_test),2)
     
     #Gradient Boosting Regression
     print("Gradient Boosting Regressor")
@@ -67,7 +73,7 @@ def main(collection,imp_features,target,inputType):
     model = ensemble.GradientBoostingRegressor(**params)
     model.fit(X_train,y_train)
     print("Test set score: {:.2f}".format(model.score(X_test, y_test)))
-    result.at['GradientBoosting']=model.score(X_test, y_test)
+    result.at['GradientBoosting']=round(model.score(X_test, y_test),2)
     
 
     return result

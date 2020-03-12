@@ -7,6 +7,7 @@ from sklearn.tree import DecisionTreeClassifier
 from sklearn.ensemble import AdaBoostClassifier
 from sklearn.preprocessing import StandardScaler
 from sklearn.decomposition import PCA
+from sklearn.model_selection import RandomizedSearchCV
 
        
 def main(collection,imp_features,target,inputType):
@@ -18,10 +19,9 @@ def main(collection,imp_features,target,inputType):
     df=data
     cat_features = []
 
-    for key in inputType:
+    for key in imp_features:
         if(inputType[key]=="1"):
-            if(key!=target):
-                cat_features.append(key)
+            cat_features.append(key)
 
 
     df = pd.get_dummies(df, columns=cat_features, drop_first=True)
@@ -53,28 +53,28 @@ def main(collection,imp_features,target,inputType):
     svc = LinearSVC(max_iter= 1000, C = 70)
     svc.fit(X_train,y_train)
     print("Test set score: {:.2f}".format(svc.score(X_test, y_test)))
-    result.at['Linear_SVM']=svc.score(X_test, y_test)
+    result.at['Linear_SVM']=round(svc.score(X_test, y_test), 2)
     
     #RandomForest Classifier
     print("RandomForest Classifier")
     rf = RandomForestClassifier(n_estimators= 20, criterion = 'entropy', random_state = 0)
     rf.fit(X_train,y_train)
     print("Test set score: {:.2f}".format(rf.score(X_test, y_test)))
-    result.at['Randomforest']=rf.score(X_test, y_test)
+    result.at['Randomforest']=round(rf.score(X_test, y_test),2)
     
     #DecisionTree Classifier
     print("DecisionTree Classifier")
     clf_gini = DecisionTreeClassifier(criterion = "gini", random_state = 100,max_depth=3, min_samples_leaf=5) 
     clf_gini.fit(X_train, y_train) 
     print("Test set score: {:.2f}".format(clf_gini.score(X_test, y_test)))
-    result.at['DecisionTree']=clf_gini.score(X_test, y_test)
+    result.at['DecisionTree']=round(clf_gini.score(X_test, y_test),2)
     
     #Adaptive Gradient Boosting Classifier
     print("Adaptive Gradient Boosting Classifier")
     abc = AdaBoostClassifier(n_estimators=50,learning_rate=1)
     model = abc.fit(X_train, y_train)
     print("Test set score: {:.2f}".format(model.score(X_test, y_test)))
-    result.at['Adaptive_GB']=model.score(X_test, y_test)
+    result.at['Adaptive_GB']=round(model.score(X_test, y_test),2)
 
     return result
 
