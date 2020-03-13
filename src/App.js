@@ -239,6 +239,17 @@ import React, { Component } from 'react';
             <Route exact path='/predict' 
                 component={() => 
                   <Predictor keys = {this.state.keys}
+                  files={ this.state.files }
+                  Linear_SVM={ this.state.Linear_SVM }
+                  RandomForest1={ this.state.RandomForest1 }
+                  DecisionTree={ this.state.DecisionTree }
+                  Adaptive_GB={ this.state.Adaptive_GB }
+                  Linear_Regression={ this.state.Linear_Regression }
+                  RandomForest2={ this.state.RandomForest2 }
+                  GradientBoosting={ this.state.GradientBoosting }
+                  Call={ this.state.Call }
+                  target={this.state.target}
+                  inputType = {this.state.inputType}
                   />
                 } 
               />

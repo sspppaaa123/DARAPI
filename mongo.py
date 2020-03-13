@@ -17,6 +17,7 @@ import get_outlier_columns
 import classification
 import regression
 import preprocessing
+import prediction
 
 
 app = Flask(__name__)
@@ -172,6 +173,19 @@ def predict_regression():
     inputType=request.get_json()['inputType']
     ml_result=regression.main(collection,features,target,inputType)
     return jsonify({"Linear_Regression":ml_result['Linear_Regression'].tolist(),"RandomForest":ml_result['RandomForest'].tolist(),"GradientBoosting":ml_result['GradientBoosting'].tolist(),"files":ml_result.index.tolist()})
+
+@app.route('/users/final_prediction', methods=["POST"])
+def final_predict():
+    file_name=request.get_json()['file_name']
+    algorithm_name=request.get_json()['algorithm_name']
+    pred_type=request.get_json()['pred_type']
+    features=request.get_json()['features']
+    target=request.get_json()['target']
+    inputType=request.get_json()['inputType']
+    feature_values=request.get_json()['feature_values']
+    result=prediction.main(file_name,algorithm_name,pred_type,features,target,inputType,feature_values)
+    return jsonify({"result":result.tolist()})
+
 
 if __name__ == '__main__':
     app.run(debug=True)  
