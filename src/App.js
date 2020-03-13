@@ -12,7 +12,8 @@ import React, { Component } from 'react';
   import FeatureDisplay from './components/FeatureDisplay'
   import DataVisualization from './components/DataVisualization'
   import OutlierAnalysis from './components/OutlierAnalysis';
-  import MLResult from './components/MLResult'
+  import MLResult from './components/MLResult';
+  import Predictor from './components/Predictor';
 
   class App extends Component {
     constructor(){
@@ -23,8 +24,14 @@ import React, { Component } from 'react';
         percent:[],
         score:[],
         inputType:[],
-        methodName:[],
-        methodScore:[]
+        files:[],
+        Linear_SVM:[],
+        RandomForest1:[],
+        DecisionTree:[],
+        Adaptive_GB:[],
+        Linear_Regression:[],
+        RandomForest2:[],
+        GradientBoosting:[],
       };
     }
 
@@ -77,18 +84,74 @@ import React, { Component } from 'react';
       console.log("getOutlier app.js")
     }
 
-    getMethodName(methodName) {
+    getfiles(files) {
       this.setState({
-        methodName: methodName
+        files: files
       })
-      console.log("getMethodName app.js")
+      console.log("getfiles app.js")
     }
 
-    getMethodScore(methodScore) {
+    getLinear_SVM(Linear_SVM) {
       this.setState({
-        methodScore: methodScore
+        Linear_SVM: Linear_SVM
       })
-      console.log("getMethodScore app.js")
+      console.log("getLinear_SVM app.js")
+    }
+
+    getRandomForest1(RandomForest1) {
+      this.setState({
+        RandomForest1: RandomForest1
+      })
+      console.log("getRandomForest1 app.js")
+    }
+
+    getDecisionTree(DecisionTree) {
+      this.setState({
+        DecisionTree: DecisionTree
+      })
+      console.log("getDecisionTree app.js")
+    }
+
+    getAdaptive_GB(Adaptive_GB) {
+      this.setState({
+        Adaptive_GB: Adaptive_GB
+      })
+      console.log("getAdaptive_GB app.js")
+    }
+
+    getLinear_Regression(Linear_Regression) {
+      this.setState({
+        Linear_Regression: Linear_Regression
+      })
+      console.log("getLinear_Regression app.js")
+    }
+
+    getRandomForest2(RandomForest2) {
+      this.setState({
+        RandomForest2: RandomForest2
+      })
+      console.log("getRandomForest2 app.js")
+    }
+
+    getGradientBoosting(GradientBoosting) {
+      this.setState({
+        GradientBoosting: GradientBoosting
+      })
+      console.log("getGradientBoosting app.js")
+    }
+
+    getCall(Call){
+      this.setState({
+        Call:Call
+      })
+      console.log("getCall app.js")
+    }
+
+    getKeys(keys) {
+      this.setState({
+        keys: keys
+      })
+      console.log("getKeys app.js")
     }
 
     render () {
@@ -145,19 +208,40 @@ import React, { Component } from 'react';
                     percent={ this.state.percent }
                     filename={ this.state.filename }
                     target={this.state.target}
-                    methodName={ this.getMethodName.bind(this) }
-                    methodScore={ this.getMethodScore.bind(this) }
+                    files={ this.getfiles.bind(this) }
+                    Linear_SVM={ this.getLinear_SVM.bind(this) }
+                    RandomForest1={ this.getRandomForest1.bind(this) }
+                    DecisionTree={ this.getDecisionTree.bind(this) }
+                    Adaptive_GB={ this.getAdaptive_GB.bind(this) }
+                    Linear_Regression={ this.getLinear_Regression.bind(this) }
+                    RandomForest2={ this.getRandomForest2.bind(this) }
+                    GradientBoosting={ this.getGradientBoosting.bind(this) }
+                    Call={ this.getCall.bind(this) }
                     inputType = {this.state.inputType}
+                    keys={ this.getKeys.bind(this) }
                   />
                 }
               />
               <Route exact path='/result'
                 component={() =>
-                <MLResult methodName={ this.state.methodName }
-                  methodScore={ this.state.methodScore }
+                <MLResult files={ this.state.files }
+                  Linear_SVM={ this.state.Linear_SVM }
+                  RandomForest1={ this.state.RandomForest1 }
+                  DecisionTree={ this.state.DecisionTree }
+                  Adaptive_GB={ this.state.Adaptive_GB }
+                  Linear_Regression={ this.state.Linear_Regression }
+                  RandomForest2={ this.state.RandomForest2 }
+                  GradientBoosting={ this.state.GradientBoosting }
+                  Call={ this.state.Call }
                 />
               }
             />
+            <Route exact path='/predict' 
+                component={() => 
+                  <Predictor keys = {this.state.keys}
+                  />
+                } 
+              />
             </div>
           </div>
         </Router>

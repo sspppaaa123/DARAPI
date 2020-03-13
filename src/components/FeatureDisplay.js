@@ -16,9 +16,16 @@ class FeatureDisplay extends Component {
             score:[],
             checkedItems: new Map(),
             colarr:[],
-            methodName:[],
-            methodScore:[],
+            files:[],
+            Linear_SVM:[],
+            RandomForest1:[],
+            DecisionTree:[],
+            Adaptive_GB:[],
+            Linear_Regression:[],
+            RandomForest2:[],
+            GradientBoosting:[],
             target:'',
+            Call:'',
             inputType:this.props.inputType
         };
         this.handleChange = this.handleChange.bind(this);
@@ -46,6 +53,7 @@ class FeatureDisplay extends Component {
     onClick(e) {
         
         let keys = Array.from( this.state.checkedItems.keys() );
+        // this.props.keys(keys)
         console.log(keys,this.props.filename)
         if(this.props.inputType[this.props.target]=="1")
         {
@@ -62,14 +70,26 @@ class FeatureDisplay extends Component {
             })
             .then((response) => {
                 this.setState({
-                    methodName: response.data.names,
-                    methodScore: response.data.test_scores
+                    files: response.data.files,
+                    Linear_SVM: response.data.Linear_SVM,
+                    RandomForest1:response.data.RandomForest,
+                    DecisionTree:response.data.DecisionTree,
+                    Adaptive_GB:response.data.Adaptive_GB,
+                    Call:"Classification"
+
                 })
-                this.props.methodName(this.state.methodName)
-                this.props.methodScore(this.state.methodScore)
+                this.props.keys(keys)
+                this.props.files(this.state.files)
+                this.props.Linear_SVM(this.state.Linear_SVM)
+                this.props.RandomForest1(this.state.RandomForest1)
+                this.props.DecisionTree(this.state.DecisionTree)
+                this.props.Adaptive_GB(this.state.Adaptive_GB)
+                this.props.Linear_Regression(this.state.Linear_Regression)
+                this.props.RandomForest2(this.state.RandomForest2)
+                this.props.GradientBoosting(this.state.GradientBoosting)
+                this.props.Call(this.state.Call)
                 this.props.history.push(`/result`)
-                console.log(response.data.names, this.state.methodName)
-                console.log(response.data.test_scores, this.state.methodScore)
+        
             })
             .catch(function (response) {
                 console.log(response);
@@ -90,11 +110,22 @@ class FeatureDisplay extends Component {
                 })
                 .then((response) => {
                     this.setState({
-                        methodName: response.data.names,
-                        methodScore: response.data.test_scores
+                        files: response.data.files,
+                        Linear_Regression: response.data.Linear_Regression,
+                        RandomForest2:response.data.RandomForest,
+                        GradientBoosting:response.data.GradientBoosting,
+                        Call:"Regression"
                     })
-                    this.props.methodName(this.state.methodName)
-                    this.props.methodScore(this.state.methodScore)
+                    this.props.keys(keys)
+                    this.props.files(this.state.files)
+                    this.props.Linear_SVM(this.state.Linear_SVM)
+                    this.props.RandomForest1(this.state.RandomForest1)
+                    this.props.DecisionTree(this.state.DecisionTree)
+                    this.props.Adaptive_GB(this.state.Adaptive_GB)
+                    this.props.Linear_Regression(this.state.Linear_Regression)
+                    this.props.RandomForest2(this.state.RandomForest2)
+                    this.props.GradientBoosting(this.state.GradientBoosting)
+                    this.props.Call(this.state.Call)
                     this.props.history.push(`/result`)
                     console.log(response.data.names, this.state.methodName)
                     console.log(response.data.test_scores, this.state.methodScore)

@@ -7,6 +7,7 @@ def main(collection,choice):
     client = MongoClient("mongodb://127.0.0.1:27017") #host uri  
     db = client["test"]   #Select the database  
     col = db[collection]  #Select the collection
+    client.drop_database("datasets")
     datasets = client["datasets"]
     data = pd.DataFrame(list(col.find()))
     data.drop(data.columns[[0]], axis = 1, inplace = True) 

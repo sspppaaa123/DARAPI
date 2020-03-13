@@ -162,7 +162,7 @@ def predict_classify():
     target=request.get_json()['target']
     inputType=request.get_json()['inputType']
     ml_result=classification.main(collection,features,target,inputType)
-    return jsonify({"test_scores":ml_result['Test_Score'].tolist(),"names":ml_result.index.tolist()})
+    return jsonify({"Linear_SVM":ml_result['Linear_SVM'].tolist(),"RandomForest":ml_result['RandomForest'].tolist(),"DecisionTree":ml_result['DecisionTree'].tolist(),"Adaptive_GB":ml_result['Adaptive_GB'].tolist(),"files":ml_result.index.tolist()})
 
 @app.route('/users/regression', methods=["POST"])
 def predict_regression():
@@ -171,13 +171,7 @@ def predict_regression():
     target=request.get_json()['target']
     inputType=request.get_json()['inputType']
     ml_result=regression.main(collection,features,target,inputType)
-    return jsonify({"test_scores":ml_result['Test_Score'].tolist(),"names":ml_result.index.tolist()})
+    return jsonify({"Linear_Regression":ml_result['Linear_Regression'].tolist(),"RandomForest":ml_result['RandomForest'].tolist(),"GradientBoosting":ml_result['GradientBoosting'].tolist(),"files":ml_result.index.tolist()})
 
 if __name__ == '__main__':
-    app.run(debug=True)
-
-
-
-
-
-    
+    app.run(debug=True)  
