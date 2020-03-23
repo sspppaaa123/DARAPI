@@ -39,7 +39,7 @@ def main(file_name,algorithm_name,pred_type,imp_features,target,inputType,featur
 
     y[target] = data[target]
 
-    X_train, X_test, y_train, y_test = train_test_split(X, y,test_size=0.1, random_state = 0)
+    X_train, X_test, y_train, y_test = train_test_split(X, y,test_size=0.3, random_state = 0)
 
     #Applying StandardScaler on it
     X_train = sc.fit_transform(X_train)

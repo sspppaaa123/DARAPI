@@ -51,7 +51,7 @@ def main(collection,imp_features,target,inputType):
             if np.abs(X[col].skew()) > 0.3:
                 X[col] = np.log1p(X[col])
 
-        X_train, X_test, y_train, y_test = train_test_split(X, y,test_size=0.1, random_state = 0)
+        X_train, X_test, y_train, y_test = train_test_split(X, y,test_size=0.3, random_state = 0)
 
         #Applying StandardScaler on it
         X_train = sc.fit_transform(X_train)

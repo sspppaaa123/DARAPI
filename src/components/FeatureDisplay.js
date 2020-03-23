@@ -180,7 +180,8 @@ class FeatureDisplay extends Component {
     );
 
           return ( 
-            <div>
+            <div align="center">
+                <h5>Select the features which have to be included for training:</h5>
                 <div class='col-lg-auto' style={flexStyle}>
                     {optionfeatures}
                 </div>
@@ -188,7 +189,7 @@ class FeatureDisplay extends Component {
                 <br></br>
                 <br></br>
                 <div align="center">
-                <button type="button" class="btn btn-primary btn-lg" onClick={this.onClick}>Predict</button>
+                <button type="button" class="btn btn-primary btn-lg" onClick={this.onClick}>Train the Models</button>
                 </div>
             </div>          
           )

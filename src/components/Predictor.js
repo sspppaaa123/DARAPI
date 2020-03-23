@@ -174,7 +174,7 @@ class Predictor extends Component {
                             <br></br>
                             <br></br>
                             <br></br>
-                            <h3>Prediction result: {this.state.result}</h3>
+                            <h3>Prediction result of {this.state.target}: {this.state.result}</h3>
                         </div>
                     </div>
                 </div>

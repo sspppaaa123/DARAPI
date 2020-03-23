@@ -31,6 +31,7 @@ class OutlierAnalysis extends Component {
                 this.setState({ 
                     outlier_cols:response.data.outliercols
                   })
+                  console.log(this.state.outlier_cols)
                 
             })
             .catch(function (response) {
@@ -80,32 +81,34 @@ class OutlierAnalysis extends Component {
         
 
     render ()  {
-        const image = {
-            width: '300px', 
-            height: '300px'
-        }
-        let arr =  this.state.outlier_cols
-        for(var j=0; j<arr.length; j++){
-            arr[j] = "Box_plot_of_"+ arr[j]
-        }
-        let arrdata = arr
-        let bp=[]
-        for(var i=0; i<arrdata.length; i++){
-            bp.push(require('../../images/'+arrdata[i]+'.png'))
-        }
+        // const image = {
+        //     width: '300px', 
+        //     height: '300px'
+        // }
+        // let arr =  this.state.outlier_cols
+        // for(var j=0; j<arr.length; j++){
+        //     arr[j] = "Box_plot_of_"+ arr[j]
+        // }
+        // let arrdata = arr
+        // let bp=[]
+        // for(var i=0; i<arrdata.length; i++){
+        //     bp.push(require('../../images/'+arrdata[i]+'.png'))
+        // }
         
-        let box = bp.map((name) =>
-                <div class="text-center">
-                    <img class="img-responsive" src={name} style={image}/>
-                </div>
-            );
+        // let box = bp.map((name) =>
+        //         <div class="text-center">
+        //             <img class="img-responsive" src={name} style={image}/>
+        //         </div>
+        //     );
 
-            
+        let outliers = this.state.outlier_cols.map((i,index)=>
+            <div><h5>{i}</h5></div>
+        )
         return ( 
           <div align="center"><br/>
-              <h5>fc and p_height are the features that have outliers</h5>
-              {/* <img class="img-responsive" src='../../images/Box_plot_of_fc.png' style={image}/> */}
-            {box}
+              <h5>The following columns are having outliers:</h5>
+                {outliers}
+            {/* {box} */}
           <br></br>
           <br></br>
           <h3>Choose an appropriate option</h3>

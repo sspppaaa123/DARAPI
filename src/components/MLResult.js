@@ -100,7 +100,7 @@ class MLResult extends Component {
           })}
 
         return(
-            <div class="container">
+            <div class="container" align="center">
             <table class ="table">
                 <thead>
                     <tr>
@@ -111,7 +111,17 @@ class MLResult extends Component {
                     {rows}
                 </tbody>
             </table>
-            <button className='btn btn-primary'  onClick={this.onClick}>Proceed</button>
+            <button className='btn btn-primary'  onClick={this.onClick}>Test with new values</button>
+            <br></br>
+            <br></br>
+            <br></br>
+            <h5>dataset_outlier_1.csv - dataset without any changes</h5>
+            <br></br>
+            <h5>dataset_outlier_2.csv - dataset with outliers replaced with mean values</h5>
+            <br></br>
+            <h5>dataset_outlier_1.csv - dataset with outliers replaced with nearest quartiles</h5>
+            <br></br>
+            <h5>dataset_outlier_1.csv - dataset with outliers dropped</h5>
             </div>
         )
     }
